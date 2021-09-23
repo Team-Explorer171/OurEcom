@@ -1,0 +1,45 @@
+{% extends "App_login/AuthBase.html" %}
+{% load crispy_forms_filters %}
+{% block content %}
+    <div class="global-container">
+        <div class="card login-form">
+            <div class="card-body">
+                <h3 class="card-title text-center">Log in to Django</h3>
+                {% if messages %}
+
+                    {% for message in messages %}
+                        <div class="alert alert-info">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+
+                {% endif %}
+                <div class="card-text">
+                    <!--
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">Incorrect username or password.</div> -->
+                    <form method="post">
+                        {% csrf_token %}
+                        <!-- to error: add class "has-danger" -->
+                        <div class="form-group">
+                            {{ form|crispy }}
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+
+                        <div class="sign-up">
+                            Don't have an account? <a href="{% url 'App_login:register_attempt' %}">Create One</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        let email = document.getElementById("id_username");
+        let pass1 = document.getElementById("id_password");
+
+        email.classList.add('form-control');
+        pass1.classList.add('form-control');
+    </script>
+
+{% endblock %}

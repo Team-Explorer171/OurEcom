@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirmed or not</title>
+    <style>
+        body {
+            color: blueviolet;
+        }
+    </style>
+</head>
+<body>
+{% if success %}
+    Congratulations! You have confirmed your account.
+{% else %}
+    Error, invalid token.
+{% endif %}
+</body>
+</html>
