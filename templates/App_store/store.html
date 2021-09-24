@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>store</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+          integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+</head>
+<body>
+<style>
+    body {
+        background-color: #EAEAEA;
+        font-family: 'Verdana', sans-serif;
+    }
+
+    .codepen-container {
+        padding: 3em;
+    }
+
+    .content-container {
+        display: flex;
+        margin: 0 auto;
+        background-color: white;
+        max-width: 660px;
+        width: 100%;
+    }
+
+    .product-image--container {
+        margin: 0 2em;
+    }
+
+    .triangle-topleft {
+        position: relative;
+        width: 0;
+        height: 0;
+        border-top: 100px solid #FFC500;
+        border-right: 100px solid transparent;
+        -webkit-transition: all ease 0.25s;
+        transition: all ease 0.25s;
+    }
+
+    .triangle-topleft:hover {
+        border-top: 100px solid #ffd54d;
+        -webkit-transition: all ease 0.25s;
+        transition: all ease 0.25s;
+    }
+
+    .back-arrow {
+        cursor: pointer;
+        position: absolute;
+        top: -90px;
+        left: 15px;
+        background-image: url('https://cdn2.iconfinder.com/data/icons/freecns-cumulus/16/519627-127_ArrowLeft-128.png');
+        background-size: 35px 35px;
+        background-repeat: no-repeat;
+        width: 40px;
+        height: 40px;
+    }
+
+    .product-image--featured {
+        max-width: 228px;
+        width: 100%;
+        max-height: 200px;
+        height: 100%;
+    }
+
+    .product-image--list {
+        display: flex;
+        justify-content: space-between;
+        list-style-type: none;
+        padding: 0;
+
+    }
+
+    .product-image--list li {
+        margin: 0 5px;
+        border: 2px solid #eaeaea;
+        border-radius: 5px;
+        -webkit-transition: all ease 0.25s;
+        transition: all ease 0.25s;
+    }
+
+    .product-image--list li.item-selected {
+        box-shadow: 1px 1px 1px #888888;
+        border: 2px solid #FFC500;
+        -webkit-transition: all ease 0.25s;
+        transition: all ease 0.25s;
+    }
+
+    .product-image--item {
+        max-width: 40px;
+        max-height: 40px;
+    }
+
+    .right-container {
+        margin: 1em;
+    }
+
+    .title {
+        margin: 0.5em 0 0 0;
+    }
+
+    .subtitle {
+        font-size: 1.25em;
+    }
+
+    .subtitle-container {
+        margin: 0.5em 0 0.5em 0;
+        opacity: 0.6;
+    }
+
+    www.everythingfrontend.com /posts/ star-rating-input-pure-css.html
+    .rating {
+        overflow: hidden;
+        display: inline-block;
+        font-size: 0;
+        position: relative;
+    }
+
+    .rating-input {
+        float: right;
+        width: 16px;
+        height: 16px;
+        padding: 0;
+        margin: 0 0 0 -16px;
+        opacity: 0;
+    }
+
+    .rating:hover .rating-star:hover,
+    .rating:hover .rating-star:hover ~ .rating-star,
+    .rating-input:checked ~ .rating-star {
+        background-position: 0 0;
+    }
+
+    .rating-star,
+    .rating:hover .rating-star {
+        position: relative;
+        float: right;
+        display: block;
+        width: 16px;
+        height: 16px;
+        background: url('http://kubyshkin.ru/samples/star-rating/star.png') 0 -16px;
+    }
+
+    .reviews {
+        text-decoration: none;
+    }
+
+    a:hover.reviews {
+        color: #365afc;
+        text-decoration: underline;
+    }
+
+    .emphasize {
+        color: #b32600;
+        font-size: 1.5em;
+        letter-spacing: -2px;
+    }
+
+    .select-dropdown {
+        max-width: 50px;
+        width: 100%;
+    }
+
+    .my-btn {
+        background-color: #FFC500;
+        border-radius: 5px;
+        max-width: 275px;
+        width: 100%;
+        height: 50px;
+        -webkit-transition: all ease 0.25s;
+        transition: all ease 0.25s;
+    }
+
+    .my-btn:hover {
+        box-shadow: 1px 1px 1px #888888;
+        background-color: #ffd54d;
+        -webkit-transition: all ease 0.25s;
+        transition: all ease 0.25s;
+    }
+
+    .flex-btn {
+        display: flex;
+        align-items: center;
+    }
+
+    .cart-icon {
+        margin: 2px;
+        width: 30px;
+        height: 30px;
+    }
+
+    .btn-text {
+        font-weight: bold;
+        font-size: 1.5em;
+        margin: 0 auto;
+    }
+</style>
+<div class="container">
+    {% for product in products %}
+        <div class="codepen-container">
+            <div class="content-container">
+                <div class="left-container">
+                    <div class="triangle-topleft">
+                        <div class="back-arrow" id="buy-toaster"></div>
+                    </div>
+                    <div class="product-image--container">
+                        <img class="product-image--featured" id="featured"
+                             src="{{ product.product_header_image.url }}" alt="toaster"/>
+                        <ul class="product-image--list">
+                            <li class="item-selected"><img
+                                    src="{{ product.product_header_image.url }}"
+                                    class="product-image--item"/></li>
+                            <li><img src="{{ product.product_image_1.url }}"
+                                     class="product-image--item"/></li>
+                            <li><img src="{{ product.product_image_2.url }}"
+                                     class="product-image--item"/></li>
+                            <li><img src="{{ product.product_image_3.url }}"
+                                     class="product-image--item"/></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="right-container">
+                    <div>
+                        <h1 class="title">{{ product.product_name }}</h1>
+                        <h2 class="subtitle subtitle-container">{{ product.product_sub_category.sub_category }}</h2>
+
+                    </div>
+                    <span>
+        <p>Price:
+          <span class="emphasize">{{ product.selling_price }}</span>
+        </p>
+        <label for="quantity">Quantity:</label>
+        <select name="quantity" class="select-dropdown">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+        </select>
+      </span>
+                    <div>
+                        <h2 class="title">Product Description</h2>
+                        <div class="subtitle-container">
+                            <span>Size: 1-Pack</span>
+                            <span>|</span>
+                            <span>Color: Black</span>
+                        </div>
+                        <p>
+                            {{ product.product_description }}
+                        </p>
+                    </div>
+                    <div>
+                        <button class="my-btn flex-btn">
+          <span>
+            <img src="https://cdn1.iconfinder.com/data/icons/material-core/20/shopping-cart-128.png" class="cart-icon"/>
+          </span>
+                            <span class="btn-text">Add to Cart
+          </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+<script>
+    $('.product-image--list li').hover(function () {
+        var url = $(this).children('img').attr('src');
+        $('.item-selected').removeClass('item-selected');
+        $(this).addClass('item-selected');
+        $('#featured').attr('src', url);
+    });
+
+    $('#buy-toaster').click(function () {
+        alert("BUY ME PLS!");
+    });
+</script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"
+        integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF"
+        crossorigin="anonymous"></script>
+</body>
+</html>
